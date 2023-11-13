@@ -1,0 +1,80 @@
+<template>
+  <div>
+    <h3>Correctos : {{ countGood }}</h3>
+    <h3>Fallados : {{ countBad }}</h3>
+  </div>
+
+  <h1 v-if="!pokemon">Cargando...</h1>
+  <div v-else>
+    <h1>¿Quien es este pokémon?</h1>
+
+    <PokemonPicture :pokemonId="pokemon.id" :showPokemon="showPokemon"/>
+    <PokemonOptions :pokemons="pokemonArr" @selectedPokemon="checkAnswer"/> 
+
+    <template v-if="showAnswer">
+      <h2 class="fade-in">{{ message }}</h2>
+      <button @click="newGame">
+        Nuevo Juego
+      </button>  
+    </template>   
+  </div>
+  
+</template>
+
+<script>
+import PokemonPicture from '@/components/PokemonPicture.vue';
+import PokemonOptions from '@/components/PokemonOptions.vue';
+import getPokemonsOptions from '@/helpers/getPokemonOptions';
+
+export default {
+    components :{
+        PokemonPicture,
+        PokemonOptions 
+    },
+    data(){
+      return{
+        pokemonArr: [],
+        pokemon: false,
+        showPokemon: false,
+        showAnswer: false,
+        message: '',
+        countGood: 0,
+        countBad: 0
+      }
+    },
+    methods:{
+      async mixPokemonArray(){
+        this.pokemonArr = await getPokemonsOptions();
+        
+        let rndInt = Math.floor(Math.random() *4);
+        this.pokemon = this.pokemonArr[rndInt];
+      },
+      checkAnswer(pokemonId){
+        this.showPokemon = true;
+        this.showAnswer = true;
+
+        if(pokemonId == this.pokemon.id){
+          this.message = 'Correcto adivinaste!!!!';
+          this.countGood++;
+        }else{
+          this.message = `Ohh, fallaste, el pokemon era ${this.pokemon.name}`;
+          this.countBad++;
+        }
+      },
+      newGame(){
+        this.showPokemon = false;
+        this.showAnswer = false;
+        this.pokemon = false;
+        this.pokemonArr = [];
+        this.mixPokemonArray();
+      }
+    },
+    mounted(){
+      this.mixPokemonArray();
+    }
+}
+</script>
+
+<style>
+
+</style>
