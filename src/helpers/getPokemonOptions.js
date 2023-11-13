@@ -2,7 +2,7 @@ import { _ } from "core-js";
 import pokemonApi from "@/api/pokemonApi";
 
 const getPokemons = () =>{   //Crea arreglo 
-    let pokemonsArr = Array.from(Array(900));
+    let pokemonsArr = Array.from(Array(650));
 
     return pokemonsArr.map((_, index) => index + 1);
 }
