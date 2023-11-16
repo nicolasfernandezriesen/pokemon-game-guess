@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PokemonPage it should match with the snapshot without pokemon 1`] = `[Function]`;
+
+exports[`PokemonPage it should match with the snapshot without pokemon 2`] = `[Function]`;
+
+exports[`PokemonPage it should match with the snapshot without pokemons 1`] = `[Function]`;
+
+exports[`PokemonPage it should match with the snapshot without pokemons 2`] = `[Function]`;

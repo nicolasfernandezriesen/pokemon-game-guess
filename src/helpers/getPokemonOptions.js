@@ -1,13 +1,13 @@
 import { _ } from "core-js";
 import pokemonApi from "@/api/pokemonApi";
 
-const getPokemons = () =>{   //Crea arreglo 
+export const getPokemons = () =>{   
     let pokemonsArr = Array.from(Array(650));
 
     return pokemonsArr.map((_, index) => index + 1);
 }
 
-const mixsPokemos = (arr = []) => {       //Mezcla el arreglo
+export const mixsPokemos = (arr = []) => {       
     return arr.sort(() => Math.random() - 0.5);
 }
 
@@ -18,7 +18,7 @@ const getPokemonOptions = async () => {
     return pokemons;
 }
 
-const getPokemonsName = async([pokemon1, pokemon2, pokemon3, pokemon4] = []) => {
+export const getPokemonsName = async([pokemon1, pokemon2, pokemon3, pokemon4] = []) => {
     const promiseArr = [
         pokemonApi.get(`/${pokemon1}`),
         pokemonApi.get(`/${pokemon2}`),
