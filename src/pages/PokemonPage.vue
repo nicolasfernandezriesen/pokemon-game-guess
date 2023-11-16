@@ -1,7 +1,7 @@
 <template>
-  <div>
-    <h3>Correctos : {{ countGood }}</h3>
-    <h3>Fallados : {{ countBad }}</h3>
+  <div id="header">
+    <h3>Correctos : <span style="color: greenyellow;">{{ countGood }}</span></h3>
+    <h3>Fallados : <span style="color: red;">{{ countBad }}</span></h3>
   </div>
 
   <h1 v-if="!pokemon">Cargando...</h1>
@@ -76,5 +76,13 @@ export default {
 </script>
 
 <style>
+  #header{
+    align-items: center;
+    justify-content: center;
+    display: flex;
+  }
 
+  h3{
+    padding: 5px;
+  }
 </style>
