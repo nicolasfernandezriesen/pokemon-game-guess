@@ -1,4 +1,6 @@
 <template>
+  <TimerCount :timer="timer" :showTimer="showTimer"/>
+
   <div id="header">
     <h3>Correctos : <span style="color: greenyellow;">{{ countGood }}</span></h3>
     <h3>Fallados : <span style="color: red;">{{ countBad }}</span></h3>
@@ -12,11 +14,14 @@
     <PokemonOptions :pokemons="pokemonArr" @selectedPokemon="checkAnswer"/> 
 
     <template v-if="showAnswer">
-      <h2 class="fade-in">{{ message }}</h2>
-      <button @click="newGame">
-        Nuevo Juego
-      </button>  
-    </template>   
+      <h2 class="fade-in">{{ message }}</h2> 
+    </template>  
+
+    <div v-if="countBad || countGood > 0">
+      <button @click="resetCount">
+        Reiniciar contadores
+      </button> 
+    </div> 
   </div>
   
 </template>
@@ -25,11 +30,13 @@
 import PokemonPicture from '@/components/PokemonPicture.vue';
 import PokemonOptions from '@/components/PokemonOptions.vue';
 import getPokemonsOptions from '@/helpers/getPokemonOptions';
+import TimerCount from '@/components/TimerCount.vue';
 
 export default {
     components :{
         PokemonPicture,
-        PokemonOptions 
+        PokemonOptions,
+        TimerCount
     },
     data(){
       return{
@@ -39,7 +46,9 @@ export default {
         showAnswer: false,
         message: '',
         countGood: 0,
-        countBad: 0
+        countBad: 0,
+        timer: 3,
+        showTimer: false
       }
     },
     methods:{
@@ -60,13 +69,24 @@ export default {
           this.message = `Ohh, fallaste, el pokemon era ${this.pokemon.name}`;
           this.countBad++;
         }
+        this.showTimer = true;
+        setTimeout(this.newGame, 3000);
       },
       newGame(){
         this.showPokemon = false;
         this.showAnswer = false;
         this.pokemon = false;
         this.pokemonArr = [];
+        this.showTimer = false;
+        this.timer = 3;
+        
         this.mixPokemonArray();
+      },
+      resetCount(){
+        this.countBad = 0;
+        this.countGood = 0;
+        
+        this.newGame();
       }
     },
     mounted(){
