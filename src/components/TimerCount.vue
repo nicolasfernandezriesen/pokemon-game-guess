@@ -27,6 +27,8 @@ export default {
             if(value > 0) {
                 setTimeout(() => {
                     this.timer--;
+                    console.log(this
+                    .timer)
                 },1000);
             }
         }
@@ -37,12 +39,3 @@ export default {
 <style>
 
 </style>
-// startTimer(){
-    //   this.showTimer = true;
-    //   while(this.timer > 0){
-    //     setTimeout(() => {
-    //       this.timer--;
-    //     }, 1000);
-    //   }
-    //   this.newGame
-    // },

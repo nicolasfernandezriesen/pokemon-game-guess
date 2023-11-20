@@ -1,5 +1,7 @@
 <template>
-  <TimerCount :timer="timer" :showTimer="showTimer"/>
+  <div v-if="showTimer">
+        <h1>{{ timer }}...</h1>
+  </div>
 
   <div id="header">
     <h3>Correctos : <span style="color: greenyellow;">{{ countGood }}</span></h3>
@@ -14,11 +16,14 @@
     <PokemonOptions :pokemons="pokemonArr" @selectedPokemon="checkAnswer"/> 
 
     <template v-if="showAnswer">
-      <h2 class="fade-in">{{ message }}</h2> 
+      <div id="container-answer">
+        <img src="../img/pikachuMsg.png" alt="pikachu" width="150" height="150">
+        <h2 id="message-answer" class="fade-in">{{ message }}</h2> 
+      </div>
     </template>  
 
     <div v-if="countBad || countGood > 0">
-      <button @click="resetCount">
+      <button id="reset" @click="resetCount">
         Reiniciar contadores
       </button> 
     </div> 
@@ -48,7 +53,8 @@ export default {
         countGood: 0,
         countBad: 0,
         timer: 3,
-        showTimer: false
+        showTimer: false,
+        timerEnable: false
       }
     },
     methods:{
@@ -69,8 +75,8 @@ export default {
           this.message = `Ohh, fallaste, el pokemon era ${this.pokemon.name}`;
           this.countBad++;
         }
-        this.showTimer = true;
-        setTimeout(this.newGame, 3000);
+        this.timerEnable = true;
+        
       },
       newGame(){
         this.showPokemon = false;
@@ -91,18 +97,54 @@ export default {
     },
     mounted(){
       this.mixPokemonArray();
+    },
+    watch:{
+      timerEnable(value){
+        this.showTimer = true;
+        if(value){
+          setTimeout(() => {
+            this.timer--;
+          },1000);
+        }
+      },
+      timer(value){
+        if(value > 0 && this.timerEnable){
+          setTimeout(() => {
+            this.timer--;
+          },1000);
+        }else{
+          this.timerEnable = false;
+          this.newGame();
+        }
+      }
     }
 }
 </script>
 
-<style>
+<style scoped>
   #header{
     align-items: center;
     justify-content: center;
     display: flex;
   }
 
+  div{
+    color: black;
+  }
+
   h3{
     padding: 5px;
+  }
+
+  #reset{
+    background-color: rgb(93, 50, 248);
+    border-radius: 5px;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    color: black;
+  }
+
+  #reset:hover {
+      background-color: rgba(89, 46, 246, 0.652);
   }
 </style>
