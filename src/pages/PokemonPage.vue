@@ -17,7 +17,9 @@
 
     <template v-if="showAnswer">
       <div id="container-answer">
-        <img src="../img/pikachuMsg.png" alt="pikachu" width="150" height="150">
+        <img v-if="this.pikachuAnswer" src="../img/pikachuGood.png" alt="pikachu" width="150" height="150">
+        <img v-else src="../img/pikachuBad.png" alt="pikachu" width="150" height="150">
+
         <h2 id="message-answer" class="fade-in">{{ message }}</h2> 
       </div>
     </template>  
@@ -50,6 +52,7 @@ export default {
         showPokemon: false,
         showAnswer: false,
         message: '',
+        pikachuAnswer: false,
         countGood: 0,
         countBad: 0,
         timer: 3,
@@ -71,9 +74,12 @@ export default {
         if(pokemonId == this.pokemon.id){
           this.message = 'Correcto adivinaste!!!!';
           this.countGood++;
+          this.pikachuAnswer = true;
+
         }else{
           this.message = `Ohh, fallaste, el pokemon era ${this.pokemon.name}`;
           this.countBad++;
+          this.pikachuAnswer = false;
         }
         this.timerEnable = true;
         
