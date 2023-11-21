@@ -37,7 +37,6 @@
 import PokemonPicture from '@/components/PokemonPicture.vue';
 import PokemonOptions from '@/components/PokemonOptions.vue';
 import getPokemonsOptions from '@/helpers/getPokemonOptions';
-import TimerCount from '@/components/TimerCount.vue';
 
 export default {
     components :{
